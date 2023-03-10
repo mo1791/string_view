@@ -1,4 +1,4 @@
-================================
+==========================================\
  non-owning view of a contiguous character sequence. [Test](https://godbolt.org/z/x6db8W7GM)
 
 string_view allows you to create a constant, non-owning view of a contiguous character sequence.
