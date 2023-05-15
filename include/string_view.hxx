@@ -517,6 +517,9 @@ private:
 
 
 
+/// @brief 
+/// @tparam CharT 
+/// @tparam Traits 
 template <typename CharT, typename Traits>
 const typename basic_string_view<CharT, Traits>::size_type basic_string_view<CharT, Traits>::npos;
 
@@ -567,8 +570,8 @@ const typename basic_string_view<CharT, Traits>::size_type basic_string_view<Cha
     /// @param str the string to print
     /// @return reference to the output stream
     template <typename CharT, typename Traits>
-    std::basic_ostream<CharT, Traits> &operator<<(std::basic_ostream<CharT, Traits> & _output,
-                                                const basic_string_view<CharT, Traits> & _str)
+    auto operator<<(std::basic_ostream<CharT, Traits> & _output, const basic_string_view<CharT, Traits> & _str)
+        -> std::basic_ostream<CharT, Traits> &   
     {
         std::ranges::for_each(_str, [&](CharT chr) { _output << chr; });
         return _output << "\xa";
@@ -881,9 +884,9 @@ extern template class basic_string_view<char32_t>;
 ////
 
 
-extern template std::basic_ostream<char> &operator<<(std::basic_ostream<char> &, const basic_string_view<char> &);
-extern template std::basic_ostream<wchar_t> &operator<<(std::basic_ostream<wchar_t> &, const basic_string_view<wchar_t> &);
-extern template std::basic_ostream<char16_t> &operator<<(std::basic_ostream<char16_t> &, const basic_string_view<char16_t> &);
-extern template std::basic_ostream<char32_t> &operator<<(std::basic_ostream<char32_t> &, const basic_string_view<char32_t> &);
+extern template auto operator<<(std::basic_ostream<char> &,     const basic_string_view<char> &) -> std::basic_ostream<char> &;
+extern template auto operator<<(std::basic_ostream<wchar_t> &,  const basic_string_view<wchar_t> &) -> std::basic_ostream<wchar_t> &;
+extern template auto operator<<(std::basic_ostream<char16_t> &, const basic_string_view<char16_t> &) -> std::basic_ostream<char16_t> &;
+extern template auto operator<<(std::basic_ostream<char32_t> &, const basic_string_view<char32_t> &) -> std::basic_ostream<char32_t> &;
 
 #endif

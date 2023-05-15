@@ -1,5 +1,5 @@
 #
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.18)
 
 project(
     string_view_l
@@ -50,5 +50,17 @@ install(EXPORT StringViewLConfig DESTINATION share/lib/cmake)
 
 export(TARGETS ${PROJECT_NAME} FILE StringViewLConfig.cmake)
 
+
 configure_file(string_view_l.pc.in string_view_l.in @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/string_view_l.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+include(CheckIPOSupported)
+
+check_ipo_supported(RESULT is_supported OUTPUT error)
+
+if(is_supported)
+    message("-- IPO is supported!")
+    set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+else()
+    message(WARNING "IPO is not supported!")
+endif()

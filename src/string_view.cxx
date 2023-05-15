@@ -194,6 +194,7 @@
 
         const size_type _rcount = std::min(m_size - _pos, _count + 1ul);
         std::copy( ( m_str + _pos ), ( m_str + _pos + _rcount ), _dest);
+
         return _rcount;
     }
 
@@ -310,6 +311,7 @@
                 return j;
             }
         }
+
         return npos;
     }
 
@@ -720,6 +722,7 @@
                 return true;
             }
         }
+
         return false;
     }
 
@@ -737,7 +740,7 @@ template class basic_string_view<char32_t>;
 /////
 
 
-template std::basic_ostream<char> &operator<<(std::basic_ostream<char> &, const basic_string_view<char> &);
-template std::basic_ostream<wchar_t> &operator<<(std::basic_ostream<wchar_t> &, const basic_string_view<wchar_t> &);
-template std::basic_ostream<char16_t> &operator<<(std::basic_ostream<char16_t> &, const basic_string_view<char16_t> &);
-template std::basic_ostream<char32_t> &operator<<(std::basic_ostream<char32_t> &, const basic_string_view<char32_t> &);
+template auto operator<<(std::basic_ostream<char> &,     const basic_string_view<char> &) -> std::basic_ostream<char> &;
+template auto operator<<(std::basic_ostream<wchar_t> &,  const basic_string_view<wchar_t> &) -> std::basic_ostream<wchar_t> &;
+template auto operator<<(std::basic_ostream<char16_t> &, const basic_string_view<char16_t> &) -> std::basic_ostream<char16_t> &;
+template auto operator<<(std::basic_ostream<char32_t> &, const basic_string_view<char32_t> &) -> std::basic_ostream<char32_t> &;
