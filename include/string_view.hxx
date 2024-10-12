@@ -125,7 +125,7 @@ public:
     *        referred to by a basic_string_view.
     * @return Maximum number of characters
     ****/
-    size_type max_size() const noexcept { return npos - 1UL; }
+    size_type max_size() const noexcept { return basic_string_view::npos - 1UL; }
 
     /***
     * @brief Returns whether the basic_string_view is empty (i.e. whether its length is 0).
@@ -248,7 +248,7 @@ public:
     * @param count requested substring length
     * @param pos position of the first character
     ****/
-    constexpr size_type copy(pointer dest, size_type count = npos, size_type pos = 0UL) const
+    constexpr size_type copy(pointer dest, size_type count = basic_string_view::npos, size_type pos = 0UL) const
     {
         if (pos >= this->m_size)
         {
@@ -267,7 +267,7 @@ public:
     * @param len the length of the substring
     * @return the created substring
     ****/
-    constexpr basic_string_view substr(size_t pos = 0UL, size_t len = npos) const
+    constexpr basic_string_view substr(size_t pos = 0UL, size_t len = basic_string_view::npos) const
     {
         const size_type max_len = ( pos > this->m_size ) ? 0UL : ( this->m_size - pos );
 
@@ -383,12 +383,12 @@ public:
         // Can't find a substring if the substring is bigger than this
         if (pos > this->size())
         {
-            return npos;
+            return basic_string_view::npos;
         }
 
         if ((pos + v.size()) > this->size())
         {
-            return npos;
+            return basic_string_view::npos;
         }
 
         const auto offset      = pos;
@@ -404,7 +404,7 @@ public:
             }
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
     constexpr size_type find(char_type c, size_type pos = 0UL) const
@@ -426,11 +426,11 @@ public:
     /**
     * @brief find the last occurrence of a substring.
     ***/
-    constexpr size_type rfind(basic_string_view v, size_type pos = npos) const
+    constexpr size_type rfind(basic_string_view v, size_type pos = basic_string_view::npos) const
     {
         if (this->empty())
         {
-            return v.empty() ? 0UL : npos;
+            return v.empty() ? 0UL : basic_string_view::npos;
         }
 
         if (v.empty())
@@ -440,12 +440,12 @@ public:
 
         if (v.size() > this->size())
         {
-            return npos;
+            return basic_string_view::npos;
         }
 
         auto i = std::min(pos, (this->size() - v.size()));
 
-        while (i != npos)
+        while (i != basic_string_view::npos)
         {
             if (this->substr(i, v.size()) == v)
             {
@@ -454,10 +454,10 @@ public:
             --i;
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
-    constexpr size_type rfind(char_type c, size_type pos = npos) const
+    constexpr size_type rfind(char_type c, size_type pos = basic_string_view::npos) const
     {
         return this->rfind(basic_string_view<CharT, Traits>(std::addressof(c), 1UL), pos);
     }
@@ -467,7 +467,7 @@ public:
         return this->rfind(basic_string_view<CharT, Traits>(s, count), pos);
     }
 
-    constexpr size_type rfind(const_pointer s, size_type pos = npos) const
+    constexpr size_type rfind(const_pointer s, size_type pos = basic_string_view::npos) const
     {
         return this->rfind(basic_string_view<CharT, Traits>(s), pos);
     }
@@ -488,7 +488,7 @@ public:
             }
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
     constexpr size_type find_first_of(char_type c, size_type pos = 0UL) const
@@ -509,11 +509,11 @@ public:
     /**
     * @brief find last occurrence of characters.
     ***/
-    constexpr size_type find_last_of(basic_string_view v, size_type pos = npos) const
+    constexpr size_type find_last_of(basic_string_view v, size_type pos = basic_string_view::npos) const
     {
         if (this->empty())
         {
-            return npos;
+            return basic_string_view::npos;
         }
 
         const auto max_index = std::min(this->size() - 1UL, pos);
@@ -528,10 +528,10 @@ public:
             }
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
-    constexpr size_type find_last_of(char_type c, size_type pos = npos) const
+    constexpr size_type find_last_of(char_type c, size_type pos = basic_string_view::npos) const
     {
         return this->find_last_of(basic_string_view<CharT, Traits>(std::addressof(c), 1UL), pos);
     }
@@ -541,7 +541,7 @@ public:
         return this->find_last_of(basic_string_view<CharT, Traits>(s, count), pos);
     }
 
-    constexpr size_type find_last_of(const_pointer s, size_type pos = npos) const
+    constexpr size_type find_last_of(const_pointer s, size_type pos = basic_string_view::npos) const
     {
         return this->find_last_of(basic_string_view<CharT, Traits>(s), pos);
     }
@@ -561,7 +561,7 @@ public:
             }
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
     constexpr size_type find_first_not_of(char_type c, size_type pos = 0UL) const
@@ -582,11 +582,11 @@ public:
     /**
     * @brief find last absence of characters.
     ***/
-    constexpr size_type find_last_not_of(basic_string_view v, size_type pos = npos) const
+    constexpr size_type find_last_not_of(basic_string_view v, size_type pos = basic_string_view::npos) const
     {
         if (this->empty())
         {
-            return npos;
+            return basic_string_view::npos;
         }
 
         const auto max_index = std::min(this->size() - 1UL, pos);
@@ -601,10 +601,10 @@ public:
             }
         }
 
-        return npos;
+        return basic_string_view::npos;
     }
 
-    constexpr size_type find_last_not_of(char_type c, size_type pos = npos) const
+    constexpr size_type find_last_not_of(char_type c, size_type pos = basic_string_view::npos) const
     {
         return this->find_last_not_of(basic_string_view<CharT, Traits>(std::addressof(c), 1UL), pos);
     }
@@ -614,7 +614,7 @@ public:
         return this->find_last_not_of(basic_string_view<CharT, Traits>(s, count), pos);
     }
 
-    constexpr size_type find_last_not_of(const_pointer s, size_type pos = npos) const
+    constexpr size_type find_last_not_of(const_pointer s, size_type pos = basic_string_view::npos) const
     {
         return this->find_last_not_of(basic_string_view<CharT, Traits>(s), pos);
     }
